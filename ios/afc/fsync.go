@@ -64,7 +64,7 @@ func NewContainer(device ios.DeviceEntry, bundleID string) (*Connection, error) 
 
 func VendContainer(deviceConn ios.DeviceConnectionInterface, bundleID string) error {
 	plistCodec := ios.NewPlistCodec()
-	vendContainer := map[string]interface{}{"Command": "VendContainer", "Identifier": bundleID}
+	vendContainer := map[string]interface{}{"Command": "VendDocuments", "Identifier": bundleID}
 	msg, err := plistCodec.Encode(vendContainer)
 	if err != nil {
 		return fmt.Errorf("VendContainer Encoding cannot fail unless the encoder is broken: %v", err)
