@@ -27,6 +27,25 @@ func (c *Client) Close() error {
 	return c.connection.Close()
 }
 
+// GetIconPNGData 获取应用图标的PNG数据
+func (c *Client) GetIconPNGData(bundleID string) ([]byte, error) {
+	err := c.plistCodec.Write(map[string]interface{}{
+		"command":  "getIconPNGData",
+		"bundleId": bundleID,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("failed to send getIconPNGData command: %w", err)
+	}
+
+	var response IconPNGDataResponse
+	err = c.plistCodec.Read(&response)
+	if err != nil {
+		return nil, fmt.Errorf("could not read plist: %w", err)
+	}
+
+	return response.PNGData, nil
+}
+
 // ListIcons provides the homescreen layout of the device
 func (c *Client) ListIcons() ([]Screen, error) {
 	err := c.plistCodec.Write(map[string]any{

@@ -7,6 +7,10 @@ type internalUnmarshaler struct {
 	icon Icon
 }
 
+type IconPNGDataResponse struct {
+	PNGData []byte `plist:"pngData"`
+}
+
 // UnmarshalPlist will try to unmarshall the different types of Icons we have and populate the icon field
 // with the detected type of Icon
 func (t *internalUnmarshaler) UnmarshalPlist(unmarshal func(interface{}) error) error {
